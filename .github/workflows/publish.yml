@@ -25,21 +25,24 @@ jobs:
           cache: maven
 
       - name: Configure Maven settings (Nexus credentials)
-        uses: whelk-io/maven-settings-xml-action@v22
-        with:
-          servers: >
-            [
-              {
-                "id": "nexus-releases",
-                "username": "${{ secrets.NEXUS_USER }}",
-                "password": "${{ secrets.NEXUS_PASSWORD }}"
-              },
-              {
-                "id": "nexus-snapshots",
-                "username": "${{ secrets.NEXUS_USER }}",
-                "password": "${{ secrets.NEXUS_PASSWORD }}"
-              }
-            ]
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings>
+            <servers>
+              <server>
+                <id>nexus-releases</id>
+                <username>${{ secrets.NEXUS_USER }}</username>
+                <password>${{ secrets.NEXUS_PASSWORD }}</password>
+              </server>
+              <server>
+                <id>nexus-snapshots</id>
+                <username>${{ secrets.NEXUS_USER }}</username>
+                <password>${{ secrets.NEXUS_PASSWORD }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
       - name: Build
         run: mvn --batch-mode clean verify -DskipTests

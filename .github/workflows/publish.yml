@@ -25,41 +25,28 @@ jobs:
       - name: Build e testes
         run: mvn --batch-mode clean verify
 
-  publish:
+  publish-github:
     runs-on: ubuntu-latest
     needs: build
-    # Só executa quando o Nexus estiver acessível publicamente (NEXUS_URL configurado)
-    if: ${{ vars.NEXUS_ENABLED == 'true' }}
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Set up JDK 21 (GitHub Packages)
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+          server-id: github
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_TOKEN
 
-      - name: Configure Maven settings (Nexus credentials)
-        run: |
-          mkdir -p ~/.m2
-          cat > ~/.m2/settings.xml <<EOF
-          <settings>
-            <servers>
-              <server>
-                <id>nexus-releases</id>
-                <username>${{ secrets.NEXUS_USER }}</username>
-                <password>${{ secrets.NEXUS_PASSWORD }}</password>
-              </server>
-              <server>
-                <id>nexus-snapshots</id>
-                <username>${{ secrets.NEXUS_USER }}</username>
-                <password>${{ secrets.NEXUS_PASSWORD }}</password>
-              </server>
-            </servers>
-          </settings>
-          EOF
-
-      - name: Publish to Nexus
-        run: mvn --batch-mode deploy -DskipTests -Dnexus.url=${{ secrets.NEXUS_URL }}
+      - name: Publish to GitHub Packages
+        run: mvn --batch-mode deploy -DskipTests
+        env:
+          MAVEN_USERNAME: ${{ github.actor }}
+          MAVEN_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -112,13 +112,14 @@
     </build>
 
     <distributionManagement>
+        <!-- GitHub Packages — usado pelo CI/CD (GITHUB_TOKEN) -->
         <repository>
-            <id>nexus-releases</id>
-            <url>${nexus.url}/repository/rml-releases/</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/org-rml/rml-common</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>${nexus.url}/repository/rml-snapshots/</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/org-rml/rml-common</url>
         </snapshotRepository>
     </distributionManagement>
 

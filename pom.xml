@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.rml</groupId>
+    <groupId>br.com.rml</groupId>
     <artifactId>rml-common</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -121,6 +121,17 @@
             <id>github</id>
             <url>https://maven.pkg.github.com/org-rml/rml-common</url>
         </snapshotRepository>
+        <!-- Nexus local — usado em dev com settings-personal.xml -->
+        <!-- Descomentar se quiser publicar localmente também
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://localhost:8082/repository/rml-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://localhost:8082/repository/rml-snapshots/</url>
+        </snapshotRepository>
+        -->
     </distributionManagement>
 
 </project>

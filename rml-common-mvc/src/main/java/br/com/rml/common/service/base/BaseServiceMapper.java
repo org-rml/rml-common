@@ -28,7 +28,5 @@ public interface BaseServiceMapper<TEntity extends BaseEntity<ID>, TDto extends 
 
     TEntity save(TDto dto) throws Exception;
 
-    List<TEntity> save(List<TEntity> entities) throws Exception;
-
     Page<TDto> toPageDto(Page<TEntity> page);
 }

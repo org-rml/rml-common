@@ -30,9 +30,4 @@ public abstract class BaseDTO<ID extends Object> {
     public boolean isIdNull() {
         return id == null;
     }
-
-    @JsonIgnore
-    public boolean isIdNotNull() {
-        return id != null;
-    }
 }

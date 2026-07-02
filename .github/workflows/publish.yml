@@ -23,7 +23,7 @@ jobs:
           cache: maven
 
       - name: Build e testes
-        run: mvn --batch-mode clean verify
+        run: mvn --batch-mode -s /dev/null clean verify
 
   publish-github:
     runs-on: ubuntu-latest
@@ -42,20 +42,5 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Configure Maven settings (GitHub Packages)
-        run: |
-          mkdir -p ~/.m2
-          cat > ~/.m2/settings.xml <<EOF
-          <settings>
-            <servers>
-              <server>
-                <id>github</id>
-                <username>${{ github.actor }}</username>
-                <password>${{ secrets.GITHUB_TOKEN }}</password>
-              </server>
-            </servers>
-          </settings>
-          EOF
-
       - name: Publish to GitHub Packages
-        run: mvn --batch-mode deploy -DskipTests
+        run: mvn --batch-mode -s /dev/null deploy -DskipTests

@@ -23,7 +23,7 @@ jobs:
           cache: maven
 
       - name: Build e testes
-        run: mvn --batch-mode -s /dev/null clean verify
+        run: mvn --batch-mode clean verify
 
   publish-github:
     runs-on: ubuntu-latest

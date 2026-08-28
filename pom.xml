@@ -12,7 +12,7 @@
 
     <groupId>br.com.rml</groupId>
     <artifactId>rml-common</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>pom</packaging>
 
     <name>RML Common</name>

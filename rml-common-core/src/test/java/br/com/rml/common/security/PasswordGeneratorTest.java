@@ -22,6 +22,6 @@ class PasswordGeneratorTest {
     void rejectsLengthBelowTheRequiredCharacterGroups() {
         assertThatThrownBy(() -> PasswordGenerator.generateSecurePassword(3))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Password length must be at least 4");
+                .hasMessage("Password deve ter pelo menos 4 caracteres");
     }
 }
